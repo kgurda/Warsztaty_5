@@ -1,0 +1,23 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <p>Imię i nazwisko: {{ contact.name }} {{ contact.surname }}</p>
+    <p>Opis: {{ contact.description }}</p>
+    <p>
+        <a href="{{ path('app_contact_modify', {'id': contact.id}) }}">Edit</a>
+        <a href="{{ path('app_contact_delete', {'id': contact.id}) }}">Delete</a>
+    </p>
+    <p>Adresses:</p>
+    <ul>
+        {% for address in contact.addresses %}
+            <li>
+                City: {{ address.city }}
+                Street: {{ address.street }}
+                {{ address.houseNumber }}
+                {{ address.apartmentNumber }}
+            </li>
+        {% endfor %}
+    </ul>
+    <a href="{{ path('app_address_new', {'id': contact.id}) }}">Add address</a>
+{% endblock %}
+

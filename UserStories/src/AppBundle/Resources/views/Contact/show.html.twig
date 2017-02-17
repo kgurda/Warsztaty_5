@@ -1,0 +1,14 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <table>
+    {% for contact in contacts|sort %}
+        <tr>
+            <td><a href="{{ path('app_contact_showid', {'id': contact.id}) }}"> {{ contact.name }} {{ contact.surname }}</a></td>
+            <td><a href="{{ path('app_contact_modify', {'id': contact.id}) }}">Edit</a></td>
+            <td><a href="{{ path('app_contact_delete', {'id': contact.id}) }}">Delete</a></td>
+        </tr>
+    {% endfor %}
+    </table>
+{% endblock %}
+
