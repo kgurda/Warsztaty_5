@@ -35,6 +35,11 @@ class Phone
      */
     private $type;
 
+    /**
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Contact", inversedBy="phones")
+     */
+    private $contact;
+
 
     /**
      * Get id

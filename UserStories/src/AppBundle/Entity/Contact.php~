@@ -53,10 +53,16 @@ class Contact
      */
     private $emails;
 
+    /**
+     * @ORM\OneToMany(targetEntity="AppBundle\Entity\Phone", mappedBy="contact")
+     */
+    private $phones;
+
     public function __construct()
     {
         $this->addresses = new ArrayCollection();
         $this->emails = new ArrayCollection();
+        $this->phones = new ArrayCollection();
     }
 
     /**

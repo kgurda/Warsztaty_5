@@ -2,17 +2,17 @@
 
 namespace AppBundle\Controller;
 
-use AppBundle\Entity\Email;
-use AppBundle\Form\EmailType;
+use AppBundle\Entity\Phone;
+use AppBundle\Form\PhoneType;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Component\HttpFoundation\Request;
 
 /**
- * @Route("/email")
+ * @Route("/phone")
  */
-class EmailController extends Controller
+class PhoneController extends Controller
 {
     /**
      * @Route("/new/{id}")
@@ -25,9 +25,9 @@ class EmailController extends Controller
             throw $this->createNotFoundException('Address not found');
         }
 
-        $email = new Email();
-        $form = $this->createForm(new EmailType(), $email);
-        $email->setContact($contact);
+        $phone = new Phone();
+        $form = $this->createForm(new PhoneType(), $phone);
+        $phone->setContact($contact);
 
         $form->handleRequest($request);
 
@@ -36,7 +36,7 @@ class EmailController extends Controller
                 ->getDoctrine()
                 ->getManager();
 
-            $em->persist($email);
+            $em->persist($phone);
             $em->flush();
 
             return $this->redirectToRoute('app_contact_showid', ['id'=> $id]);
@@ -54,14 +54,14 @@ class EmailController extends Controller
         if(!$contact) {
             throw $this->createNotFoundException('Contact not found');
         }
-        $email = $this->getDoctrine()->getRepository('AppBundle:Email')->find($id);
+        $phone = $this->getDoctrine()->getRepository('AppBundle:Phone')->find($id);
 
-        if(!$email) {
-            throw $this->createNotFoundException('Email not found');
+        if(!$phone) {
+            throw $this->createNotFoundException('Phone not found');
         }
 
-        $form = $this->createForm(new EmailType(), $email);
-        $email->setContact($contact);
+        $form = $this->createForm(new PhoneType(), $phone);
+        $phone->setContact($contact);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
@@ -86,16 +86,16 @@ class EmailController extends Controller
      */
     public function deleteAction($id, $id_c)
     {
-        $email = $this->getDoctrine()->getRepository('AppBundle:Email')->find($id);
-        if(!$email) {
-            throw $this->createNotFoundException('Address not found');
+        $phone = $this->getDoctrine()->getRepository('AppBundle:Phone')->find($id);
+        if(!$phone) {
+            throw $this->createNotFoundException('Phone not found');
         }
 
         $em = $this
             ->getDoctrine()
             ->getManager();
 
-        $em->remove($email);
+        $em->remove($phone);
         $em->flush();
 
         return $this->redirectToRoute(
@@ -105,5 +105,4 @@ class EmailController extends Controller
             ]
         );
     }
-
 }

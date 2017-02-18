@@ -9,9 +9,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Component\HttpFoundation\Request;
 
-/**
- * @Route("/contact")
- */
+
 class ContactController extends Controller
 {
     /**
@@ -86,7 +84,7 @@ class ContactController extends Controller
             $em->flush();
 
             return $this->redirectToRoute(
-                'app_contact_show',
+                'app_contact_showid',
                 [
                     'id' => $contact->getId()
                 ]

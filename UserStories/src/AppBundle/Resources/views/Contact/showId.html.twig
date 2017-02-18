@@ -12,9 +12,12 @@
         {% for address in contact.addresses %}
             <li>
                 Address: {{ address.city }},
-                 {{ address.street }},
-                 {{ address.houseNumber }} /
-                {{ address.apartmentNumber }}
+                 {{ address.street }}
+                 {{ address.houseNumber }}
+                {% if address.apartmentNumber is not null %}
+                /
+                {% endif %}
+                {{address.apartmentNumber }}
                 <a href="{{ path('app_address_modify', {'id': address.id, 'id_c' : contact.id }) }}">Edit</a>
                 <a href="{{ path('app_address_delete', {'id': address.id, 'id_c' : contact.id }) }}">Delete</a>
             </li>
@@ -34,6 +37,19 @@
         {% endfor %}
     </ul>
     <a href="{{ path('app_email_new', {'id': contact.id}) }}">Add address</a>
+
+    <p>Phones:</p>
+    <ul>
+        {% for phone in contact.phones %}
+            <li>
+                Phone: {{ phone.number }}
+                Type: {{ phone.type }}
+                <a href="{{ path('app_phone_modify', {'id': phone.id, 'id_c' : contact.id }) }}">Edit</a>
+                <a href="{{ path('app_phone_delete', {'id': phone.id, 'id_c' : contact.id }) }}">Delete</a>
+            </li>
+        {% endfor %}
+    </ul>
+    <a href="{{ path('app_phone_new', {'id': contact.id}) }}">Add phone</a>
 
 {% endblock %}
 
