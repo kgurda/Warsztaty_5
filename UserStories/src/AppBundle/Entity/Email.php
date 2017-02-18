@@ -24,9 +24,9 @@ class Email
     /**
      * @var string
      *
-     * @ORM\Column(name="email_adress", type="string", length=255, unique=true)
+     * @ORM\Column(name="email", type="string", length=255)
      */
-    private $emailAdress;
+    private $email;
 
     /**
      * @var string
@@ -34,6 +34,11 @@ class Email
      * @ORM\Column(name="type", type="string", length=255)
      */
     private $type;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Contact", inversedBy="emails")
+     */
+    private $contact;
 
 
     /**
@@ -47,26 +52,26 @@ class Email
     }
 
     /**
-     * Set emailAdress
+     * Set email
      *
-     * @param string $emailAdress
+     * @param string $email
      * @return Email
      */
-    public function setEmailAdress($emailAdress)
+    public function setEmail($email)
     {
-        $this->emailAdress = $emailAdress;
+        $this->email = $email;
 
         return $this;
     }
 
     /**
-     * Get emailAdress
+     * Get email
      *
      * @return string 
      */
-    public function getEmailAdress()
+    public function getEmail()
     {
-        return $this->emailAdress;
+        return $this->email;
     }
 
     /**
@@ -90,5 +95,28 @@ class Email
     public function getType()
     {
         return $this->type;
+    }
+
+    /**
+     * Set contact
+     *
+     * @param \AppBundle\Entity\Contact $contact
+     * @return Email
+     */
+    public function setContact(\AppBundle\Entity\Contact $contact = null)
+    {
+        $this->contact = $contact;
+
+        return $this;
+    }
+
+    /**
+     * Get contact
+     *
+     * @return \AppBundle\Entity\Contact 
+     */
+    public function getContact()
+    {
+        return $this->contact;
     }
 }

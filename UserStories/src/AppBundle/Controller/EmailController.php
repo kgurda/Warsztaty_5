@@ -2,17 +2,17 @@
 
 namespace AppBundle\Controller;
 
-use AppBundle\Entity\Address;
-use AppBundle\Form\AddressType;
+use AppBundle\Entity\Email;
+use AppBundle\Form\EmailType;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Component\HttpFoundation\Request;
 
 /**
- * @Route("/address")
+ * @Route("/email")
  */
-class AddressController extends Controller
+class EmailController extends Controller
 {
     /**
      * @Route("/new/{id}")
@@ -25,10 +25,9 @@ class AddressController extends Controller
             throw $this->createNotFoundException('Address not found');
         }
 
-        $address = new Address();
-
-        $form = $this->createForm(new AddressType(), $address);
-        $address->setContact($contact);
+        $email = new Email();
+        $form = $this->createForm(new EmailType(), $email);
+        $email->setContact($contact);
 
         $form->handleRequest($request);
 
@@ -37,30 +36,17 @@ class AddressController extends Controller
                 ->getDoctrine()
                 ->getManager();
 
-            $em->persist($address);
+            $em->persist($email);
             $em->flush();
 
             return $this->redirectToRoute('app_contact_showid', ['id'=> $id]);
         }
         return ['form' => $form->createView()];
     }
-//
-//    /**
-//     * @Route("/{id}")
-//     * @Template()
-//     */
-//    public function showAction($id)
-//    {
-//        $addresses = $this->getDoctrine()->getRepository('AppBundle:Contact')->findAll();
-//        if($addresses==null) {
-//            return $this->redirectToRoute('app_contact_new');
-//        }
-//        return ['addresses' => $addresses];
-//    }
 
     /**
      * @Route("/{id}/modify/{id_c}")
-     * @Template("@App/Address/new.html.twig")
+     * @Template("@App/Email/new.html.twig")
      */
     public function modifyAction(Request $request, $id, $id_c)
     {
@@ -68,14 +54,14 @@ class AddressController extends Controller
         if(!$contact) {
             throw $this->createNotFoundException('Contact not found');
         }
-        $address = $this->getDoctrine()->getRepository('AppBundle:Address')->find($id);
+        $email = $this->getDoctrine()->getRepository('AppBundle:Email')->find($id);
 
-        if(!$address) {
-            throw $this->createNotFoundException('Address not found');
+        if(!$email) {
+            throw $this->createNotFoundException('Email not found');
         }
 
-        $form = $this->createForm(new AddressType(), $address);
-        $address->setContact($contact);
+        $form = $this->createForm(new EmailType(), $email);
+        $email->setContact($contact);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
@@ -100,8 +86,8 @@ class AddressController extends Controller
      */
     public function deleteAction($id, $id_c)
     {
-        $address = $this->getDoctrine()->getRepository('AppBundle:Address')->find($id);
-        if(!$address) {
+        $email = $this->getDoctrine()->getRepository('AppBundle:Email')->find($id);
+        if(!$email) {
             throw $this->createNotFoundException('Address not found');
         }
 
@@ -109,7 +95,7 @@ class AddressController extends Controller
             ->getDoctrine()
             ->getManager();
 
-        $em->remove($address);
+        $em->remove($email);
         $em->flush();
 
         return $this->redirectToRoute(
@@ -119,4 +105,5 @@ class AddressController extends Controller
             ]
         );
     }
+
 }

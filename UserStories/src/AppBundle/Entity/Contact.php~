@@ -48,9 +48,15 @@ class Contact
      */
     private $addresses;
 
+    /**
+     * @ORM\OneToMany(targetEntity="AppBundle\Entity\Email", mappedBy="contact")
+     */
+    private $emails;
+
     public function __construct()
     {
         $this->addresses = new ArrayCollection();
+        $this->emails = new ArrayCollection();
     }
 
     /**
@@ -130,5 +136,71 @@ class Contact
     public function getDescription()
     {
         return $this->description;
+    }
+
+    /**
+     * Add addresses
+     *
+     * @param \AppBundle\Entity\Address $addresses
+     * @return Contact
+     */
+    public function addAddress(\AppBundle\Entity\Address $addresses)
+    {
+        $this->addresses[] = $addresses;
+
+        return $this;
+    }
+
+    /**
+     * Remove addresses
+     *
+     * @param \AppBundle\Entity\Address $addresses
+     */
+    public function removeAddress(\AppBundle\Entity\Address $addresses)
+    {
+        $this->addresses->removeElement($addresses);
+    }
+
+    /**
+     * Get addresses
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getAddresses()
+    {
+        return $this->addresses;
+    }
+
+    /**
+     * Add emails
+     *
+     * @param \AppBundle\Entity\Email $emails
+     * @return Contact
+     */
+    public function addEmail(\AppBundle\Entity\Email $emails)
+    {
+        $this->emails[] = $emails;
+
+        return $this;
+    }
+
+    /**
+     * Remove emails
+     *
+     * @param \AppBundle\Entity\Email $emails
+     */
+    public function removeEmail(\AppBundle\Entity\Email $emails)
+    {
+        $this->emails->removeElement($emails);
+    }
+
+    /**
+     * Get emails
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getEmails()
+    {
+        return $this->emails;
     }
 }
