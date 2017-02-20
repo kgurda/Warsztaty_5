@@ -1,17 +1,21 @@
 {% extends 'base.html.twig' %}
-
+{% block title %}
+    Show contact
+{% endblock %}
 {% block body %}
-    <p>Imię i nazwisko: {{ contact.name }} {{ contact.surname }}</p>
-    <p>Opis: {{ contact.description }}</p>
+    <a href="{{ path('app_contact_show')}}">Show all contacts</a>
+    <div style="width: 25%" align="center">
+        <h2>{{ contact.name }} {{ contact.surname }}</h2>
+        <h3>{{ contact.description }}</h3>
+    </div>
     <p>
         <a href="{{ path('app_contact_modify', {'id': contact.id}) }}">Edit</a>
         <a href="{{ path('app_contact_delete', {'id': contact.id}) }}">Delete</a>
     </p>
-    <p>Adresses:</p>
+    <h4>Adresses:</h4>
     <ul>
         {% for address in contact.addresses %}
-            <li>
-                Address: {{ address.city }},
+            <li> {{ address.city }},
                  {{ address.street }}
                  {{ address.houseNumber }}
                 {% if address.apartmentNumber is not null %}
@@ -25,24 +29,22 @@
     </ul>
     <a href="{{ path('app_address_new', {'id': contact.id}) }}">Add address</a>
 
-    <p>Emails:</p>
+    <h4>Emails:</h4>
     <ul>
         {% for email in contact.emails %}
-            <li>
-                Email: {{ email.email }}
+            <li>{{ email.email }}
                 Type: {{ email.type }}
                 <a href="{{ path('app_email_modify', {'id': email.id, 'id_c' : contact.id }) }}">Edit</a>
                 <a href="{{ path('app_email_delete', {'id': email.id, 'id_c' : contact.id }) }}">Delete</a>
             </li>
         {% endfor %}
     </ul>
-    <a href="{{ path('app_email_new', {'id': contact.id}) }}">Add address</a>
+    <a href="{{ path('app_email_new', {'id': contact.id}) }}">Add email</a>
 
-    <p>Phones:</p>
+    <h4>Phones:</h4>
     <ul>
         {% for phone in contact.phones %}
-            <li>
-                Phone: {{ phone.number }}
+            <li>{{ phone.number }}
                 Type: {{ phone.type }}
                 <a href="{{ path('app_phone_modify', {'id': phone.id, 'id_c' : contact.id }) }}">Edit</a>
                 <a href="{{ path('app_phone_delete', {'id': phone.id, 'id_c' : contact.id }) }}">Delete</a>

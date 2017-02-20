@@ -37,6 +37,7 @@ class Phone
 
     /**
      * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Contact", inversedBy="phones")
+     * @ORM\JoinColumn(name="contact_id", referencedColumnName="id", onDelete="CASCADE")
      */
     private $contact;
 

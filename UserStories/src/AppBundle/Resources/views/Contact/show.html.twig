@@ -1,7 +1,11 @@
 {% extends 'base.html.twig' %}
-
+{% block title %}
+    Show contacts
+{% endblock %}
 {% block body %}
+    <h2>Contact list: </h2>
     <table>
+        <tr><td>Name</td><td colspan="2">Action</td></tr>
     {% for contact in contacts|sort %}
         <tr>
             <td><a href="{{ path('app_contact_showid', {'id': contact.id}) }}"> {{ contact.name }} {{ contact.surname }}</a></td>
